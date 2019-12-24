@@ -16,14 +16,14 @@ public class SingleMediaFileHandler {
   }
 
   public void process(MediaFile file) throws IOException {
-    file.prepare();
+    file.init();
     file.setAlbum(formatAlbum());
     file.setTitle(formatTitle());
     file.setTrack(Integer.toString(mediaFileConfig.getTrack()));
     file.setArtist(mediaFileConfig.getArtist());
     file.setAlbumArtist(mediaFileConfig.getAlbumArtist());
     file.setGenre(Constants.AUDIOBOOK_GENRE);
-    file.setDescription(mediaFileConfig.getDescription());
+    file.setComment(mediaFileConfig.getDescription());
 
     log.debug(
         "Saving media file with album='{}', title='{}', track={}, artist='{}', album_artist='{}', genre='{}', comment='{}'",
@@ -33,7 +33,7 @@ public class SingleMediaFileHandler {
         file.getArtist(),
         file.getAlbumArtist(),
         file.getGenre(),
-        file.getDescription());
+        file.getComment());
 
     file.save();
   }

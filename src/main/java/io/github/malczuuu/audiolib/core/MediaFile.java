@@ -8,7 +8,7 @@ import io.github.malczuuu.audiolib.core.adapter.Mp3FileAdapter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class MediaFile {
+public class MediaFile implements ID3v2Adapter {
 
   public static MediaFile open(Path path) throws IOException {
     try {
@@ -24,66 +24,82 @@ public class MediaFile {
     this.adapter = adapter;
   }
 
-  public void prepare() {
+  @Override
+  public void init() {
     adapter.init();
   }
 
+  @Override
   public void setAlbum(String album) {
     adapter.setAlbum(album);
   }
 
+  @Override
   public void setTitle(String title) {
     adapter.setTitle(title);
   }
 
+  @Override
   public void setTrack(String track) {
     adapter.setTrack(track);
   }
 
+  @Override
   public void setArtist(String artist) {
     adapter.setArtist(artist);
   }
 
+  @Override
   public void setAlbumArtist(String albumArtist) {
     adapter.setAlbumArtist(albumArtist);
   }
 
-  public void setDescription(String description) {
-    adapter.setComment(description);
+  @Override
+  public void setComment(String comment) {
+    adapter.setComment(comment);
   }
 
+  @Override
   public void setGenre(String genre) {
     adapter.setGenre(genre);
   }
 
+  @Override
   public String getAlbum() {
     return adapter.getAlbum();
   }
 
+  @Override
   public String getTitle() {
     return adapter.getTitle();
   }
 
+  @Override
   public String getTrack() {
     return adapter.getTrack();
   }
 
+  @Override
   public String getArtist() {
     return adapter.getArtist();
   }
 
+  @Override
   public String getAlbumArtist() {
     return adapter.getAlbumArtist();
   }
 
-  public String getDescription() {
+  @Override
+  public String getComment() {
     return adapter.getComment();
   }
 
+  @Override
   public String getGenre() {
     return adapter.getGenre();
   }
 
+  @Override
   public void save() throws IOException {
     adapter.save();
   }
