@@ -80,8 +80,8 @@ public class Mp3FileAdapter implements ID3v2Adapter {
   }
 
   @Override
-  public void setComment(String description) {
-    getId3v2Tag().setComment(description);
+  public void setComment(String comment) {
+    getId3v2Tag().setComment(comment);
   }
 
   @Override

@@ -16,7 +16,7 @@ public interface ID3v2Adapter {
 
   void setAlbumArtist(String albumArtist);
 
-  void setComment(String description);
+  void setComment(String comment);
 
   void setGenre(String genre);
 
