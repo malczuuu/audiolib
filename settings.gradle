@@ -4,4 +4,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "mp3lib"
+rootProject.name = "audiolib"
