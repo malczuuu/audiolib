@@ -1,5 +1,7 @@
 # AudioLIB
 
+[![Build Status](https://travis-ci.org/malczuuu/audiolib.svg?branch=master)](https://travis-ci.org/malczuuu/audiolib)
+
 Organize and apply ID3v2 tags to your audiobook files.
 
 ## How to use?
