@@ -24,4 +24,4 @@ test {
     useJUnitPlatform()
 }
 
-mainClassName = "io.github.malczuuu.audiolib.AudiolibApplication"
+mainClassName = "io.github.malczuuu.audiolib.Application"

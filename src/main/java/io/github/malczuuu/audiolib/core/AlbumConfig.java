@@ -1,9 +1,9 @@
-package io.github.malczuuu.audiolib;
+package io.github.malczuuu.audiolib.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AudiolibConfig {
+public class AlbumConfig {
 
   private String bookSeries;
   private String bookTitle;
@@ -12,7 +12,7 @@ public class AudiolibConfig {
   private String description;
 
   @JsonCreator
-  public AudiolibConfig(
+  public AlbumConfig(
       @JsonProperty("book_series") String bookSeries,
       @JsonProperty("book_title") String bookTitle,
       @JsonProperty("artist") String artist,
@@ -25,9 +25,28 @@ public class AudiolibConfig {
     this.description = description;
   }
 
-   @JsonProperty("book_series") public String getBookSeries() { return bookSeries; }
-   @JsonProperty("book_title") public String getBookTitle() { return bookTitle; }
-   @JsonProperty("artist") public String getArtist() { return artist; }
-   @JsonProperty("album_artist") public String getAlbumArtist() { return albumArtist; }
-   @JsonProperty("description") public String getDescription() { return description; }
+  @JsonProperty("book_series")
+  public String getBookSeries() {
+    return bookSeries;
+  }
+
+  @JsonProperty("book_title")
+  public String getBookTitle() {
+    return bookTitle;
+  }
+
+  @JsonProperty("artist")
+  public String getArtist() {
+    return artist;
+  }
+
+  @JsonProperty("album_artist")
+  public String getAlbumArtist() {
+    return albumArtist;
+  }
+
+  @JsonProperty("description")
+  public String getDescription() {
+    return description;
+  }
 }

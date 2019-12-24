@@ -1,20 +1,34 @@
-package io.github.malczuuu.audiolib.mp3;
+package io.github.malczuuu.audiolib.core;
 
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v24Tag;
+import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
-import io.github.malczuuu.audiolib.api.MediaFile;
-import io.github.malczuuu.audiolib.api.MediaFilePersistence;
+import com.mpatric.mp3agic.NotSupportedException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+import java.io.IOException;
+import java.nio.file.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Mp3MediaFile implements MediaFile {
+public class MediaFile {
+
+  private static final Logger log = LoggerFactory.getLogger(MediaFile.class);
+
+  public static MediaFile open(Path path) throws IOException {
+    try {
+      return new MediaFile(new Mp3File(path));
+    } catch (UnsupportedTagException | InvalidDataException e) {
+      throw new IOException(e);
+    }
+  }
 
   private final Mp3File file;
 
-  public Mp3MediaFile(Mp3File file) {
+  public MediaFile(Mp3File file) {
     this.file = file;
   }
 
-  @Override
   public void prepare() {
     resetId3v1Tag();
     resetCustomTag();
@@ -45,82 +59,70 @@ public class Mp3MediaFile implements MediaFile {
     file.setId3v2Tag(tag);
   }
 
-  @Override
   public void setAlbum(String album) {
     file.getId3v2Tag().setAlbum(album);
   }
 
-  @Override
   public void setTitle(String title) {
     file.getId3v2Tag().setTitle(title);
   }
 
-  @Override
   public void setTrack(String track) {
     file.getId3v2Tag().setTrack(track);
   }
 
-  @Override
   public void setArtist(String artist) {
     file.getId3v2Tag().setArtist(artist);
   }
 
-  @Override
   public void setAlbumArtist(String albumArtist) {
     file.getId3v2Tag().setAlbumArtist(albumArtist);
   }
 
-  @Override
   public void setDescription(String description) {
     file.getId3v2Tag().setComment(description);
   }
 
-  @Override
   public void setGenre(String genre) {
     file.getId3v2Tag().setGenreDescription(genre);
   }
 
-  @Override
   public String getAlbum() {
     return file.getId3v2Tag().getAlbum();
   }
 
-  @Override
   public String getTitle() {
     return file.getId3v2Tag().getTitle();
   }
 
-  @Override
   public String getTrack() {
     return file.getId3v2Tag().getTrack();
   }
 
-  @Override
   public String getArtist() {
     return file.getId3v2Tag().getArtist();
   }
 
-  @Override
   public String getAlbumArtist() {
     return file.getId3v2Tag().getAlbumArtist();
   }
 
-  @Override
   public String getDescription() {
     return file.getId3v2Tag().getComment();
   }
 
-  @Override
   public String getGenre() {
     return file.getId3v2Tag().getGenreDescription();
   }
 
-  @Override
-  public MediaFilePersistence getPersistence() {
-    return new Mp3MediaFilePersistence();
-  }
-
-  Mp3File getFile() {
-    return file;
+  public void save() throws IOException {
+    String filename = Constants.OUTPUT_DIRECTORY + getTitle().replaceAll("#", "");
+    try {
+      file.save(filename);
+      log.info("Saved file='{}'", filename);
+    } catch (NotSupportedException e) {
+      log.error("Unable to save file='{}'", filename, e);
+      throw new IOException(e);
+    }
   }
 }

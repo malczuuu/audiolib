@@ -1,6 +1,6 @@
-package io.github.malczuuu.audiolib;
+package io.github.malczuuu.audiolib.core;
 
-public class AudiolibProcessProps {
+public class SingleMediaFileConfig {
 
   private final String bookSeries;
   private final String bookTitle;
@@ -13,8 +13,8 @@ public class AudiolibProcessProps {
   private final String outputDirectory;
   private final int tracksTotal;
 
-  public AudiolibProcessProps(
-      AudiolibConfig config, int track, String outputDirectory, int tracksTotal) {
+  public SingleMediaFileConfig(
+      AlbumConfig config, int track, String outputDirectory, int tracksTotal) {
     this(
         config.getBookSeries(),
         config.getBookTitle(),
@@ -26,7 +26,7 @@ public class AudiolibProcessProps {
         tracksTotal);
   }
 
-  private AudiolibProcessProps(
+  private SingleMediaFileConfig(
       String bookSeries,
       String bookTitle,
       String artist,

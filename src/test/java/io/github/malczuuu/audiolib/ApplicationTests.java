@@ -2,7 +2,7 @@ package io.github.malczuuu.audiolib;
 
 import org.junit.jupiter.api.Test;
 
-public class AudiolibApplicationTests {
+public class ApplicationTests {
   @Test
   public void shouldPass() {}
 }
