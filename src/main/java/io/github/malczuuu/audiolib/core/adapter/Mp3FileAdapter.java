@@ -126,7 +126,7 @@ public class Mp3FileAdapter implements ID3v2Adapter {
 
   @Override
   public void save() throws IOException {
-    String filename = Constants.OUTPUT_DIRECTORY + getTitle().replaceAll("#", "");
+    String filename = Constants.OUTPUT_DIRECTORY + getTitle().replaceAll("#", "") + ".mp3";
     try {
       file.save(filename);
       log.info("Saved file='{}'", filename);
