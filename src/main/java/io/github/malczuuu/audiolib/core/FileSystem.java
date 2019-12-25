@@ -3,6 +3,7 @@ package io.github.malczuuu.audiolib.core;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,5 +26,9 @@ public class FileSystem {
     if (!Files.exists(directory)) {
       Files.createDirectory(directory);
     }
+  }
+
+  public String readAllLines(String filename) throws IOException {
+    return String.join("", Files.readAllLines(Paths.get(filename)));
   }
 }

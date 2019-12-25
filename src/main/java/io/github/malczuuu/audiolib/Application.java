@@ -6,8 +6,6 @@ import io.github.malczuuu.audiolib.core.AlbumConfig;
 import io.github.malczuuu.audiolib.core.Constants;
 import io.github.malczuuu.audiolib.core.FileSystem;
 import io.github.malczuuu.audiolib.core.MediaFilesProcessing;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -25,22 +23,17 @@ public class Application {
   void run() throws Exception {
     List<Path> paths = fileSystem.listOfMp3Files(Paths.get(Constants.INPUT_DIRECTORY));
     fileSystem.createDirectory(Paths.get(Constants.OUTPUT_DIRECTORY));
-    new MediaFilesProcessing(albumConfig, paths).run();
+    new MediaFilesProcessing().withAlbumConfig(albumConfig).withPaths(paths).run();
   }
 
   public static void main(String[] args) throws Exception {
 
     FileSystem fileSystem = new FileSystem();
+    ObjectMapper objectMapper = new ObjectMapperFactory().getObjectMapper();
 
-    ObjectMapper mapper = new ObjectMapperFactory().getObjectMapper();
-
-    String configFileContent = readConfigFile();
-    AlbumConfig albumConfig = mapper.readValue(configFileContent, AlbumConfig.class);
+    AlbumConfig albumConfig =
+        AlbumConfig.withObjectMapper(objectMapper).withFileSystem(fileSystem).loadFromFile(Constants.CONFIG_FILE);
 
     new Application(albumConfig, fileSystem).run();
-  }
-
-  private static String readConfigFile() throws IOException {
-    return String.join("", Files.readAllLines(Path.of(Constants.CONFIG_FILE)));
   }
 }
