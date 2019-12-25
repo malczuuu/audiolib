@@ -3,6 +3,9 @@ plugins {
     id "application"
 }
 
+group = "io.github.malczuuu.audilib"
+version = "0.1.0"
+
 repositories {
     mavenCentral()
 }
