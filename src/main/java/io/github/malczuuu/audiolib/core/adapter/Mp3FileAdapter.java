@@ -2,25 +2,37 @@ package io.github.malczuuu.audiolib.core.adapter;
 
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.ID3v24Tag;
+import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.NotSupportedException;
-import io.github.malczuuu.audiolib.core.Constants;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import java.io.IOException;
+import java.nio.file.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Mp3FileAdapter implements ID3v2Adapter {
 
+  public static Mp3FileAdapter open(Path path) throws IOException {
+    try {
+      Mp3File file = new Mp3File(path);
+      Mp3FileAdapter adapter = new Mp3FileAdapter(file);
+      adapter.init();
+      return adapter;
+    } catch (UnsupportedTagException | InvalidDataException e) {
+      throw new IOException(e);
+    }
+  }
+
   private static final Logger log = LoggerFactory.getLogger(Mp3FileAdapter.class);
 
   private final Mp3File file;
 
-  public Mp3FileAdapter(Mp3File file) {
+  private Mp3FileAdapter(Mp3File file) {
     this.file = file;
   }
 
-  @Override
-  public void init() {
+  private void init() {
     resetId3v1Tag();
     resetCustomTag();
     resetId3v2Tag();
@@ -125,8 +137,7 @@ public class Mp3FileAdapter implements ID3v2Adapter {
   }
 
   @Override
-  public void save() throws IOException {
-    String filename = Constants.OUTPUT_DIRECTORY + getTitle().replaceAll("#", "") + ".mp3";
+  public void save(String filename) throws IOException {
     try {
       file.save(filename);
       log.info("Saved file='{}'", filename);

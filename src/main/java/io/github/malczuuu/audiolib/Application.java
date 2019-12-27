@@ -29,7 +29,7 @@ public class Application {
   public static void main(String[] args) throws Exception {
 
     FileSystem fileSystem = new FileSystem();
-    ObjectMapper objectMapper = new ObjectMapperFactory().getObjectMapper();
+    ObjectMapper objectMapper = new ObjectMapperFactory().getYamlObjectMapper();
 
     AlbumConfig albumConfig =
         AlbumConfig.withObjectMapper(objectMapper).withFileSystem(fileSystem).loadFromFile(Constants.CONFIG_FILE);

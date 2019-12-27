@@ -8,17 +8,27 @@ Organize and apply ID3v2 tags to your audiobook files.
 
 Build project with `./gradlew install`.
 
-In directory with audiobook MP3 files create `__directory.json` file with
+In directory with audiobook MP3 files create `__directory.yaml` file with
 following configuration.
 
-```json
-{
-  "book_series": "{book_series}",
-  "book_title": "{book_title}",
-  "artist": "{artist}",
-  "album_artist": "{album_artist}",
-  "description": "{description}"
-}
+```yaml
+albums:
+  - book_series: "{book_series_1}"
+    book_title: "{book_title_1}"
+    artist: "{artist_1}"
+    album_artist: "{album_artist_1}"
+    description: "{description_1}"
+    input: "/path/to/input/directory/1/"
+    output: "/path/to/output/directory/1/"
+
+  - book_series: "{book_series_2}"
+    book_title: "{book_title_2}"
+    artist: "{artist_2}"
+    album_artist: "{album_artist_2}"
+    description: "{description_2}"
+    input: "/path/to/input/directory/2/"
+    output: "/path/to/output/directory/2/"
+  # ...
 ```
 
 Then call `{path_to_project_root}/build/install/audiolib/bin/audiolib` from

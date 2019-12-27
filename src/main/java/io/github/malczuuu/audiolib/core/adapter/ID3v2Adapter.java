@@ -1,10 +1,9 @@
 package io.github.malczuuu.audiolib.core.adapter;
 
+import io.github.malczuuu.audiolib.core.Constants;
 import java.io.IOException;
 
 public interface ID3v2Adapter {
-
-  void init();
 
   void setAlbum(String album);
 
@@ -34,5 +33,10 @@ public interface ID3v2Adapter {
 
   String getGenre();
 
-  void save() throws IOException;
+  default void save() throws IOException {
+    String filename = Constants.OUTPUT_DIRECTORY + getTitle().replaceAll("#", "") + ".mp3";
+    save(filename);
+  }
+
+  void save(String filename) throws IOException;
 }

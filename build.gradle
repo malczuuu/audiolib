@@ -12,11 +12,13 @@ repositories {
 
 dependencies {
     implementation("com.mpatric:mp3agic:${mp3agic_version}")
+    implementation("org.apache.commons:commons-lang3:${commons_lang_version}")
 
     implementation("org.slf4j:slf4j-api:${slf4j_api_version}")
     runtimeOnly("ch.qos.logback:logback-classic:${logback_version}")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:${jackson_version}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jackson_version}")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junit_version}")
     testImplementation("org.junit.jupiter:junit-jupiter-params:${junit_version}")

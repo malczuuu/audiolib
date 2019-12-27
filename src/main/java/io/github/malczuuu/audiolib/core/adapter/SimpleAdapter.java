@@ -1,6 +1,11 @@
 package io.github.malczuuu.audiolib.core.adapter;
 
-public class PojoAdapter implements ID3v2Adapter {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class SimpleAdapter implements ID3v2Adapter {
+
+  private static final Logger log = LoggerFactory.getLogger(SimpleAdapter.class);
 
   private String album;
   private String title;
@@ -9,9 +14,6 @@ public class PojoAdapter implements ID3v2Adapter {
   private String albumArtist;
   private String comment;
   private String genre;
-
-  @Override
-  public void init() {}
 
   @Override
   public void setAlbum(String album) {
@@ -84,5 +86,7 @@ public class PojoAdapter implements ID3v2Adapter {
   }
 
   @Override
-  public void save() {}
+  public void save(String filename) {
+    log.info("Saved {}", filename);
+  }
 }

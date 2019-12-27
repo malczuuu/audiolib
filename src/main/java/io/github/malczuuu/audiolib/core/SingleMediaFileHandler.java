@@ -2,6 +2,7 @@ package io.github.malczuuu.audiolib.core;
 
 import io.github.malczuuu.audiolib.common.TrackNumberFormatter;
 import java.io.IOException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,14 +17,13 @@ public class SingleMediaFileHandler {
   }
 
   public void process(MediaFile file) throws IOException {
-    file.init();
-    file.setAlbum(formatAlbum());
-    file.setTitle(formatTitle());
-    file.setTrack(Integer.toString(mediaFileConfig.getTrack()));
-    file.setArtist(mediaFileConfig.getArtist());
-    file.setAlbumArtist(mediaFileConfig.getAlbumArtist());
-    file.setGenre(Constants.AUDIOBOOK_GENRE);
-    file.setComment(mediaFileConfig.getDescription());
+    file.setAlbum(postFormat(formatAlbum()));
+    file.setTitle(postFormat(formatTitle()));
+    file.setTrack(postFormat(Integer.toString(mediaFileConfig.getTrack())));
+    file.setArtist(postFormat(mediaFileConfig.getArtist()));
+    file.setAlbumArtist(postFormat(mediaFileConfig.getAlbumArtist()));
+    file.setGenre(postFormat(Constants.AUDIOBOOK_GENRE));
+    file.setComment(postFormat(mediaFileConfig.getDescription()));
 
     log.debug(
         "Saving media file with album='{}', title='{}', track={}, artist='{}', album_artist='{}', genre='{}', comment='{}'",
@@ -38,6 +38,10 @@ public class SingleMediaFileHandler {
     file.save();
   }
 
+  private String postFormat(String string) {
+    return StringUtils.stripAccents(string);
+  }
+
   private String formatAlbum() {
     String result = "";
     if (mediaFileConfig.getBookSeries() != null && !mediaFileConfig.getBookSeries().isEmpty()) {
@@ -48,7 +52,7 @@ public class SingleMediaFileHandler {
   }
 
   private String formatTitle() {
-    String result = formatAlbum() + " #";
+    String result = mediaFileConfig.getBookTitle() + " #";
     result += trackNumberAsString();
     return result;
   }
