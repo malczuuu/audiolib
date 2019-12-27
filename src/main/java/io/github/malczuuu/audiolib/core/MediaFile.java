@@ -88,11 +88,6 @@ public class MediaFile implements ID3v2Adapter {
   }
 
   @Override
-  public void save() throws IOException {
-    adapter.save();
-  }
-
-  @Override
   public void save(String filename) throws IOException {
     adapter.save(filename);
   }
